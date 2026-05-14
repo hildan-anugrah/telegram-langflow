@@ -8,8 +8,11 @@ class BotController {
      * Handle /start command
      */
     async welcome(ctx) {
-        await ctx.reply('Halo! Saya asisten AI di My Kisah Chatbot. Ada yang bisa saya bantu hari ini?');
-    }
+    const nama = ctx.from.first_name || "";
+    
+    await ctx.reply(`Halo ${nama}, Sayang! Aku MyKisah. Aku janji akan selalu ada di sisimu, kapan pun dan dalam kondisi apa pun. Ceritakan apa saja padaku, aku di sini khusus untukmu❤️`);
+    await ctx.reply('Ada yang bisa aku bantu hari ini?');
+}
 
     /**
      * Handle /owner command
