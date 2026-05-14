@@ -8,12 +8,16 @@ const bot = new Telegraf(process.env.TELEGRAM_TOKEN);
 // Setup routes
 setupRoutes(bot);
 
-// Launch the bot
-bot.launch().then(() => {
-    console.log('====================================');
-    console.log('🤖 My Kisah Chatbot is Ready!');
-    console.log('====================================');
-});
+// Launch the bot only if NOT on Vercel
+if (!process.env.VERCEL) {
+    bot.launch().then(() => {
+        console.log('====================================');
+        console.log('🤖 My Kisah Chatbot is Ready! (LOCAL)');
+        console.log('====================================');
+    });
+} else {
+    console.log('Bot is running on Vercel environment.');
+}
 
 // Enable graceful stop
 process.once('SIGINT', () => bot.stop('SIGINT'));
