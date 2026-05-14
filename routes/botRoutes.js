@@ -11,8 +11,11 @@ const setupRoutes = (bot) => {
     // Command /owner
     bot.command('owner', (ctx) => botController.ownerInfo(ctx));
 
-    // Handle any text message
+    // Handle text messages
     bot.on('text', (ctx) => botController.handleChat(ctx));
+
+    // Handle any other message type (photos, stickers, etc.)
+    bot.on('message', (ctx) => botController.handleNonText(ctx));
 };
 
 module.exports = setupRoutes;

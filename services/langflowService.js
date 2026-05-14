@@ -1,16 +1,20 @@
 const axios = require('axios');
-const crypto = require('crypto');
 
 /**
  * Service to handle communication with Langflow API
  */
 class LangflowService {
-    async processChatMessage(userMessage) {
+    /**
+     * Process chat message with Langflow
+     * @param {string} userMessage 
+     * @param {string|number} sessionId - Use unique user ID for memory
+     */
+    async processChatMessage(userMessage, sessionId) {
         const payload = {
             "output_type": "chat",
             "input_type": "chat",
             "input_value": userMessage,
-            "session_id": crypto.randomUUID()
+            "session_id": sessionId.toString()
         };
 
         const config = {

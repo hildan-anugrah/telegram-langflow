@@ -23,11 +23,13 @@ class BotController {
      */
     async handleChat(ctx) {
         const userMessage = ctx.message.text;
+        const userId = ctx.from.id; // Menggunakan ID User sebagai session agar ada memori
 
         try {
             await ctx.sendChatAction('typing');
             
-            const botReply = await langflowService.processChatMessage(userMessage);
+            // Kirim pesan ke service dengan userId sebagai sessionId
+            const botReply = await langflowService.processChatMessage(userMessage, userId);
             
             await ctx.reply(botReply);
 
@@ -35,6 +37,13 @@ class BotController {
             console.error("Bot Controller Error:", err);
             await ctx.reply("Duh, server AI-nya lagi bengong. Coba lagi nanti ya.");
         }
+    }
+
+    /**
+     * Handle non-text messages (images, stickers, etc.)
+     */
+    async handleNonText(ctx) {
+        await ctx.reply("Maaf ya, saat ini saya baru bisa mengerti pesan berupa teks saja. 😊");
     }
 }
 
